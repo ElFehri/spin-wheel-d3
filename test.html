@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPIN WHEEL</title>
+    <style>
+        body{
+            background-image: url(bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        text {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        #chart {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            top: 0;
+            left: 0;
+        }
+
+        #question {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            top: 0;
+            left: 520px;
+        }
+
+    </style>
+    
+</head>
+
+<body>
+
+    <div>
+        <div>
+            <div id="chart" style="margin-left: 100px;"></div>
+        </div>
+        <div>
+            <div id="question" style="margin-left: 200px;"></div>
+        </div>
+    </div>
+
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="script.js"></script>
+    
+</body>
+
+</html>
