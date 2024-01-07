@@ -1,8 +1,19 @@
-var selectedName="", selectedQuestion=""; 
+var selectedName = "", selectedQuestion = "";
 // Define a callback function to display the alert
-function displayAlert() {
-    alert("Name : " + selectedName + "\nQuestion : " + selectedQuestion );
+function displayAlert(name, question) {
+    // Play the audio
+    var audio = document.getElementById("successAudio");
+    if (audio) {
+        audio.play();
+    }
+
+    // Set a timeout to display the alert after a short delay
+    setTimeout(function () {
+        alert("Name : " + name + "\nQuestion : " + question);
+    }, 100); // Adjust the delay to match the audio length or as needed
 }
+
+
 
 
 //names part
@@ -19,11 +30,17 @@ var paddingNames = { top: 20, right: 40, bottom: 0, left: 0 },
 var namesList = [
     "ABSSA NOUHAILA", "ACHATA AYOUB", "AGOURAM ABDESSAMAD",
     "AIT ADDI YAHYA", "AIT-MAARIR OMAR", "AKHRAIRIZ LAHOUCINE",
-    "ALIDRISSI NABIL NAJLAE", "AMELLAL WIAM", "BELLALI SOUFIANE",
+    "ALIDRISSI NABIL NAJLAE", "BELLALI SOUFIANE",
     "BEN MAHMD MOHAMED", "BOUADDI FATIHA", "BOUDDAFATE ABDELKARIM",
-    "BOUHIA MOHAMED", "BOUZID ASMA", "CHAHOUR FATIMA ZAHRA",
-    "DAQUA MOUNIR", "ED-DAHBY YOUSSEF"
+    "BOUHIA MOHAMED", "BOUZID ASMA",
+    "DAQUA MOUNIR", "ED-DAHBY YOUSSEF", "EL BAZ LAILA", "ELALAOUI ISMAIL",
+    "ELASRI ASMA", "HIMMICHE YASSINE", "KANANE SAADIA", "KARMAS NABIL",
+    "KARYM MINA", "KHALIL RAMADAN", "LAKHEL FATIMA ZAHRA", "MARNIN MARIAM",
+    "MERROUCH WAFAE", "MOUMOUD TAOUFIK", "MOURID RADOUANE", "SIDI EL ALEM AICHA",
+    "SIDKI ABDELLATIF", "TAKAAD OUSSAMA", "TOBI OUSSAMA", "TOUMI SAAD",
+    "ZAROIL MOHAMED"
 ];
+
 
 var dataNames = namesList.map(function (label, index) {
     return { "label": label, "value": index + 1 };
@@ -71,6 +88,11 @@ containerNames.on("click", function () {
 function spinNames(data, vis1, container) {
     container.on("click", null);
 
+    var spinaudio = document.getElementById("spinAudio");
+    if (spinaudio) {
+        spinaudio.play();
+    }
+
     if (oldpickNames.length === data.length) {
         console.log("done");
         container.on("click", null);
@@ -104,16 +126,12 @@ function spinNames(data, vis1, container) {
                 .attr("fill", "#333");
             // Display the selected name in an alert
             selectedName = data[pickedNames].label;
-            
+
             oldrotationNames = rotationNames;
             container.on("click", function () {
                 spinNames(data, vis1, container);
             });
 
-            // Check if both selectedName and selectedQuestion are set and call the callback
-            if (selectedName && selectedQuestion) {
-                displayAlert();
-            }
         });
 }
 
@@ -164,13 +182,20 @@ var paddingQuestions = { top: 20, right: 40, bottom: 0, left: 0 },
     pickedQuestions = 100000,
     oldpickQuestions = [],
     colorQuestions = d3.scale.category20();
-   
+
 var questionsList = [
-    "What is the capital of France?", "Who wrote Hamlet?", "What is the largest mammal?",
-    "How many continents are there?",
-    "Who painted the Mona Lisa?", "What is the square root of 64?", "What is the boiling point of water?",
-    "Who discovered penicillin?",
+    "Quelles sont les obligations de l’employeur!?",
+    "Qu’elles démarche doit suivre un salarié atteint d’une maladie prof !??",
+    "Comment prévenir des accidents de travail!?",
+    "Citer brièvement les types des maladies prof!?",
+    "C’est quoi une maladie professionnelle!?",
+    "Qui est-ce qu'un accident de travail?",
+    "Quelles sont les catégories des accidents de travail!?",
+    "Quelles sont les responsabilités des employeurs!?",
+    "Quelles sont les responsabilités des employés!?",
+    "Pouvez-vous venir ici et nous donner un résumé de cette présentation!?"
 ];
+
 
 var dataQuestions = questionsList.map(function (label, index) {
     return { "label": label, "value": index + 1 };
@@ -208,7 +233,7 @@ arcsQuestions.append("text").attr("transform", function (d) {
 })
     .attr("text-anchor", "end")
     .text(function (d, i) {
-        return dataQuestions[i].label;
+        return dataQuestions[i].label.slice(0, 30);
     });
 
 containerQuestions.on("click", function () {
@@ -217,6 +242,11 @@ containerQuestions.on("click", function () {
 
 function spinQuestions(data, vis1, container) {
     container.on("click", null);
+
+    var spinaudio = document.getElementById("spinAudio");
+    if (spinaudio) {
+        spinaudio.play();
+    }
 
     if (oldpickQuestions.length === data.length) {
         console.log("done");
@@ -250,8 +280,8 @@ function spinQuestions(data, vis1, container) {
             d3.select(".question:nth-child(" + (pickedQuestions + 1) + ") path")
                 .attr("fill", "#333");
             // Display the selected name and question in a single alert
-            selectedQuestion = data[pickedQuestions].label;            
-            
+            selectedQuestion = data[pickedQuestions].label;
+
             oldrotationQuestions = rotationQuestions;
             container.on("click", function () {
                 spinQuestions(data, vis1, container);
@@ -259,9 +289,9 @@ function spinQuestions(data, vis1, container) {
 
             // Check if both selectedName and selectedQuestion are set and call the callback
             if (selectedName && selectedQuestion) {
-                displayAlert();
+                displayAlert(selectedName, selectedQuestion);
             }
-            selectedQuestion ="";
+            selectedQuestion = "";
             selectedName = "";
         });
 }
